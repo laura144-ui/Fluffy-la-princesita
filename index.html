@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>Fluffy & La Princesita ♡</title>
 
+
 <style>
+
+/* ==============================
+   CONFIGURACIÓN GENERAL
+================================ */
 
 * {
   margin: 0;
@@ -14,139 +25,287 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
+}
+
+body {
   background: #08091d;
   overflow: hidden;
 }
 
-/* PORTADA */
+
+/* ==============================
+   PORTADA
+================================ */
 
 #portada {
-  position: fixed;
-  inset: 0;
 
-  background-image: url("./ChatGPT%20Image%2023%20ago%202026%2C%2022_27_34.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
 
   background-color: #08091d;
+
+  background-image:
+    url("ChatGPT%20Image%2023%20ago%202026%2C%2022_27_34.png");
+
+  background-repeat: no-repeat;
+
+  background-position: center;
+
+  background-size: contain;
+
 }
 
-/* BOTÓN CLICABLE */
+
+/* ==============================
+   BOTÓN INVISIBLE
+================================ */
 
 #comenzar {
+
   position: absolute;
 
   left: 50%;
-  top: 68%;
+  top: 70%;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%);
 
   width: 420px;
+
   max-width: 75vw;
+
   height: 90px;
 
-  border: 3px solid rgba(255, 150, 200, 0.7);
+  /* Lo dejamos visible por ahora
+     para comprobar dónde pulsamos */
+
+  border:
+    3px solid
+    rgba(255, 150, 200, 0.8);
+
   border-radius: 15px;
 
-  background: rgba(255, 150, 200, 0.12);
+  background:
+    rgba(255, 120, 180, 0.15);
 
   cursor: pointer;
+
+  z-index: 10;
+
 }
 
-/* PANTALLA DE PRUEBA */
+
+/* Al pulsarlo */
+
+#comenzar:active {
+
+  background:
+    rgba(255, 150, 200, 0.35);
+
+}
+
+
+/* ==============================
+   PANTALLA DE PRUEBA
+================================ */
 
 #juego {
+
   display: none;
 
   width: 100vw;
   height: 100vh;
 
-  background: #141738;
+  background:
 
-  color: #ffd5e3;
+    linear-gradient(
+      #0d1030,
+      #26224c
+    );
 
-  font-family: monospace;
+  color: #ffd7e4;
+
+  font-family:
+    monospace;
 
   align-items: center;
+
   justify-content: center;
+
   flex-direction: column;
 
   text-align: center;
+
+  padding: 30px;
+
 }
+
 
 #juego h1 {
-  font-size: 35px;
+
+  font-size:
+    clamp(
+      30px,
+      8vw,
+      60px
+    );
+
   margin-bottom: 20px;
+
+  color: #f2a1bd;
+
 }
+
 
 #juego p {
-  font-size: 18px;
+
+  font-size:
+    clamp(
+      15px,
+      4vw,
+      20px
+    );
+
+  line-height: 1.6;
+
 }
 
-/* MÓVIL */
 
-@media (max-width: 600px) {
+/* ==============================
+   MÓVIL
+================================ */
+
+@media
+(max-width: 600px) {
 
   #portada {
-    background-size: contain;
+
+    background-size:
+      contain;
+
   }
 
-  #comenzar {
-    width: 70vw;
-    height: 70px;
 
-    /* luego lo ajustaremos */
-    top: 68%;
+  #comenzar {
+
+    width: 72vw;
+
+    height: 75px;
+
+    top: 70%;
+
   }
 
 }
 
 </style>
+
 </head>
+
+
 
 <body>
 
 
+<!-- ==========================
+     PORTADA
+=========================== -->
+
 <div id="portada">
+
 
   <button
     id="comenzar"
     aria-label="Comenzar aventura">
   </button>
 
+
 </div>
 
+
+
+<!-- ==========================
+     PRUEBA DEL JUEGO
+=========================== -->
 
 <div id="juego">
 
-  <h1>♡ FUNCIONA ♡</h1>
+
+  <h1>
+    ♡ FUNCIONA ♡
+  </h1>
+
 
   <p>
-    Fluffy y La Princesita están listas para su aventura.
+    Fluffy 🧸 y La Princesita 🐱👑
+    están listas para comenzar
+    su aventura.
   </p>
 
+
 </div>
+
 
 
 <script>
 
-const portada = document.getElementById("portada");
-const juego = document.getElementById("juego");
-const comenzar = document.getElementById("comenzar");
 
-comenzar.addEventListener("click", function() {
+/* Cogemos los elementos */
 
-  portada.style.display = "none";
-  juego.style.display = "flex";
+const portada =
+  document.getElementById(
+    "portada"
+  );
 
-});
+
+const comenzar =
+  document.getElementById(
+    "comenzar"
+  );
+
+
+const juego =
+  document.getElementById(
+    "juego"
+  );
+
+
+
+/* Cuando pulsamos */
+
+comenzar.addEventListener(
+  "click",
+  function () {
+
+
+    /* Ocultamos portada */
+
+    portada.style.display =
+      "none";
+
+
+    /* Mostramos juego */
+
+    juego.style.display =
+      "flex";
+
+
+  }
+);
+
 
 </script>
 
 
 </body>
+
 </html>
