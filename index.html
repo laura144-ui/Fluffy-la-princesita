@@ -1,305 +1,175 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+  <title>Fluffy & La Princesita ♡</title>
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<title>Fluffy & La Princesita ♡</title>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: #08091d;
+    }
 
+    body {
+      overflow: hidden;
+    }
 
-<style>
+    /* PORTADA */
 
-/* ==============================
-   CONFIGURACIÓN GENERAL
-================================ */
+    #portada {
+      position: fixed;
+      inset: 0;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
+      background: #08091d;
+    }
 
-body {
-  background: #08091d;
-  overflow: hidden;
-}
+    #imagenPortada {
+      width: 100%;
+      height: 100%;
 
+      object-fit: contain;
+      object-position: center;
 
-/* ==============================
-   PORTADA
-================================ */
+      display: block;
+    }
 
-#portada {
-  position: fixed;
-  top: 0;
-  left: 0;
+    /* BOTÓN INVISIBLE ENCIMA DE LA IMAGEN */
 
-  width: 100vw;
-  height: 100vh;
+    #comenzar {
+      position: absolute;
 
-  background-color: #08091d;
+      left: 50%;
+      top: 54%;
 
-  background-image: url("./ChatGPT Image 23 ago 2026, 22_27_34.png");
+      transform: translate(-50%, -50%);
 
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
+      width: min(320px, 62vw);
+      height: 70px;
 
+      border: 3px solid rgba(255, 160, 200, 0.75);
+      background: rgba(255, 130, 180, 0.12);
 
-/* ==============================
-   BOTÓN INVISIBLE
-================================ */
+      border-radius: 18px;
 
-#comenzar {
+      cursor: pointer;
+      z-index: 10;
+    }
 
-  position: absolute;
+    /* PANTALLA DE PRUEBA */
 
-  left: 50%;
-  top: 70%;
+    #juego {
+      display: none;
 
-  transform:
-    translate(-50%, -50%);
+      width: 100vw;
+      height: 100vh;
 
-  width: 420px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
 
-  max-width: 75vw;
+      background: linear-gradient(
+        #0c1030,
+        #28234e
+      );
 
-  height: 90px;
+      color: #ffd4e1;
 
-  /* Lo dejamos visible por ahora
-     para comprobar dónde pulsamos */
+      font-family: monospace;
+      text-align: center;
 
-  border:
-    3px solid
-    rgba(255, 150, 200, 0.8);
+      padding: 30px;
+    }
 
-  border-radius: 15px;
+    #juego h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
 
-  background:
-    rgba(255, 120, 180, 0.15);
-
-  cursor: pointer;
-
-  z-index: 10;
-
-}
-
-
-/* Al pulsarlo */
-
-#comenzar:active {
-
-  background:
-    rgba(255, 150, 200, 0.35);
-
-}
-
-
-/* ==============================
-   PANTALLA DE PRUEBA
-================================ */
-
-#juego {
-
-  display: none;
-
-  width: 100vw;
-  height: 100vh;
-
-  background:
-
-    linear-gradient(
-      #0d1030,
-      #26224c
-    );
-
-  color: #ffd7e4;
-
-  font-family:
-    monospace;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex-direction: column;
-
-  text-align: center;
-
-  padding: 30px;
-
-}
-
-
-#juego h1 {
-
-  font-size:
-    clamp(
-      30px,
-      8vw,
-      60px
-    );
-
-  margin-bottom: 20px;
-
-  color: #f2a1bd;
-
-}
-
-
-#juego p {
-
-  font-size:
-    clamp(
-      15px,
-      4vw,
-      20px
-    );
-
-  line-height: 1.6;
-
-}
-
-
-/* ==============================
-   MÓVIL
-================================ */
-
-@media
-(max-width: 600px) {
-
-  #portada {
-
-    background-size:
-      contain;
-
-  }
-
-
-  #comenzar {
-
-    width: 72vw;
-
-    height: 75px;
-
-    top: 70%;
-
-  }
-
-}
-
-</style>
-
+    #juego p {
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 600px) {
+
+      #imagenPortada {
+        object-fit: contain;
+      }
+
+      #comenzar {
+        width: 65vw;
+        height: 65px;
+        top: 54%;
+      }
+    }
+  </style>
 </head>
-
-
 
 <body>
 
+  <div id="portada">
 
-<!-- ==========================
-     PORTADA
-=========================== -->
+    <img
+      id="imagenPortada"
+      src="./ChatGPT Image 23 ago 2026, 22_27_34.png"
+      alt="Fluffy y La Princesita"
+    >
 
-<div id="portada">
+    <button
+      id="comenzar"
+      aria-label="Comenzar aventura">
+    </button>
 
-
-  <button
-    id="comenzar"
-    aria-label="Comenzar aventura">
-  </button>
-
-
-</div>
-
+  </div>
 
 
-<!-- ==========================
-     PRUEBA DEL JUEGO
-=========================== -->
+  <div id="juego">
 
-<div id="juego">
+    <h1>♡ FUNCIONA ♡</h1>
 
+    <p>
+      Fluffy 🧸 y La Princesita 🐱👑<br>
+      están listas para comenzar su aventura.
+    </p>
 
-  <h1>
-    ♡ FUNCIONA ♡
-  </h1>
-
-
-  <p>
-    Fluffy 🧸 y La Princesita 🐱👑
-    están listas para comenzar
-    su aventura.
-  </p>
+  </div>
 
 
-</div>
+  <script>
+
+    const portada =
+      document.getElementById("portada");
+
+    const comenzar =
+      document.getElementById("comenzar");
+
+    const juego =
+      document.getElementById("juego");
 
 
+    comenzar.addEventListener("click", function () {
 
-<script>
+      portada.style.display = "none";
 
+      juego.style.display = "flex";
 
-/* Cogemos los elementos */
+    });
 
-const portada =
-  document.getElementById(
-    "portada"
-  );
-
-
-const comenzar =
-  document.getElementById(
-    "comenzar"
-  );
-
-
-const juego =
-  document.getElementById(
-    "juego"
-  );
-
-
-
-/* Cuando pulsamos */
-
-comenzar.addEventListener(
-  "click",
-  function () {
-
-
-    /* Ocultamos portada */
-
-    portada.style.display =
-      "none";
-
-
-    /* Mostramos juego */
-
-    juego.style.display =
-      "flex";
-
-
-  }
-);
-
-
-</script>
-
+  </script>
 
 </body>
-
 </html>
