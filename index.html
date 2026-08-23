@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,85 +8,920 @@
   <title>Fluffy & La Princesita ♡</title>
 
   <style>
+
+    /* =========================
+       CONFIGURACIÓN GENERAL
+    ========================= */
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    html,
     body {
-      background: #0b0d24;
-      overflow: hidden;
+      width: 100%;
+      height: 100%;
     }
+
+    body {
+      background: #090b20;
+      overflow: hidden;
+      font-family: monospace;
+    }
+
+    button {
+      font-family: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+
+    /* =========================
+       PORTADA
+    ========================= */
 
     #portada {
-      width: 100vw;
-      height: 100vh;
+      position: fixed;
+      inset: 0;
 
-      background-image: url("ChatGPT Image 23 ago 2026, 22_27_34.png");
-      background-size: contain;
-      background-position: center;
+      background-color: #090b20;
+
+      background-image: url("./portada.png");
       background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
 
-      position: relative;
+      z-index: 100;
+
+      transition:
+        opacity 1s ease,
+        transform 1s ease;
     }
+
+
+    /* Botón invisible encima del botón
+       dibujado en nuestra portada */
 
     #botonComenzar {
       position: absolute;
 
-      /* Zona del botón dibujado en la imagen */
       left: 50%;
-      top: 63%;
+      top: 62%;
 
       transform: translate(-50%, -50%);
 
-      width: 360px;
-      height: 75px;
+      width: min(380px, 65vw);
+      height: 80px;
 
-      /* Invisible pero clicable */
-      background: transparent;
       border: none;
+      background: transparent;
+
       cursor: pointer;
+
+      border-radius: 15px;
     }
 
-    #botonComenzar:hover {
-      filter: brightness(1.15);
+
+    #botonComenzar:active {
+      background: rgba(255, 190, 215, 0.10);
     }
+
+
+    .portada-saliendo {
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+
+
+    /* =========================
+       JUEGO
+    ========================= */
 
     #juego {
-      display: none;
+      position: fixed;
+      inset: 0;
 
-      width: 100vw;
-      height: 100vh;
+      overflow: hidden;
 
-      background: linear-gradient(
-        #11183c,
-        #263c61
+      color: #ffe8d2;
+
+      background:
+        linear-gradient(
+          #080b29 0%,
+          #12143b 38%,
+          #272047 70%,
+          #463257 100%
+        );
+    }
+
+
+    /* =========================
+       CIELO
+    ========================= */
+
+    .cielo {
+      position: absolute;
+      inset: 0;
+
+      overflow: hidden;
+    }
+
+
+    /* Luna */
+
+    .luna {
+      position: absolute;
+
+      right: 10%;
+      top: 8%;
+
+      font-size: clamp(55px, 12vw, 100px);
+
+      color: #ffe1a3;
+
+      text-shadow:
+        0 0 10px #ffe2a5,
+        0 0 30px #e895ad,
+        0 0 60px #b96f9c;
+
+      animation: brilloLuna 3s ease-in-out infinite alternate;
+    }
+
+
+    @keyframes brilloLuna {
+
+      from {
+        filter: brightness(.9);
+      }
+
+      to {
+        filter: brightness(1.15);
+      }
+
+    }
+
+
+    /* Estrellas */
+
+    .estrella {
+      position: absolute;
+
+      color: #ffe6ba;
+
+      text-shadow:
+        0 0 5px #fff,
+        0 0 10px #ffdca0;
+
+      animation: parpadeo 2s infinite alternate;
+    }
+
+
+    .e1 {
+      top: 13%;
+      left: 12%;
+    }
+
+    .e2 {
+      top: 22%;
+      left: 28%;
+      animation-delay: .5s;
+    }
+
+    .e3 {
+      top: 12%;
+      left: 52%;
+      animation-delay: 1s;
+    }
+
+    .e4 {
+      top: 27%;
+      right: 18%;
+    }
+
+
+    @keyframes parpadeo {
+
+      from {
+        opacity: .3;
+        transform: scale(.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1.3);
+      }
+
+    }
+
+
+    /* =========================
+       ESTRELLA SECRETA
+    ========================= */
+
+    .estrella-secreta {
+      position: absolute;
+
+      top: 21%;
+      left: 18%;
+
+      border: none;
+      background: none;
+
+      color: #fff0b8;
+
+      font-size: 27px;
+
+      cursor: pointer;
+
+      text-shadow:
+        0 0 7px white,
+        0 0 15px #ffd682;
+
+      animation: estrellaSecreta 1.3s infinite alternate;
+
+      z-index: 10;
+    }
+
+
+    @keyframes estrellaSecreta {
+
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.45);
+      }
+
+    }
+
+
+    /* =========================
+       MONTAÑAS
+    ========================= */
+
+    .montanas {
+      position: absolute;
+
+      left: -5%;
+      bottom: 34%;
+
+      width: 110%;
+      height: 32%;
+
+      background: #171738;
+
+      clip-path: polygon(
+        0 100%,
+        0 70%,
+        12% 28%,
+        22% 72%,
+        35% 18%,
+        48% 70%,
+        62% 32%,
+        73% 75%,
+        87% 20%,
+        100% 70%,
+        100% 100%
       );
 
-      color: white;
+      opacity: .9;
+    }
 
-      align-items: center;
+
+    /* =========================
+       PUEBLO
+    ========================= */
+
+    .pueblo {
+      position: absolute;
+
+      bottom: 31%;
+
+      width: 100%;
+      height: 90px;
+
+      display: flex;
       justify-content: center;
-      flex-direction: column;
+      align-items: flex-end;
 
-      font-family: monospace;
+      gap: clamp(25px, 8vw, 100px);
     }
 
-    #juego h1 {
-      color: #f4a7c1;
-      margin-bottom: 20px;
+
+    .casa {
+      position: relative;
+
+      width: 60px;
+      height: 45px;
+
+      background: #39234a;
+
+      border: 3px solid #20152e;
+
+      box-shadow:
+        inset 0 -8px #281a38;
     }
 
-    #juego p {
-      font-size: 18px;
+
+    .casa::before {
+      content: "";
+
+      position: absolute;
+
+      left: -8px;
+      top: -25px;
+
+      width: 70px;
+      height: 35px;
+
+      background: #5e3655;
+
+      clip-path: polygon(
+        50% 0,
+        100% 100%,
+        0 100%
+      );
     }
+
+
+    .ventana {
+      position: absolute;
+
+      width: 10px;
+      height: 13px;
+
+      background: #ffd176;
+
+      bottom: 12px;
+
+      box-shadow:
+        0 0 8px #ffba66,
+        0 0 15px #ff8f75;
+    }
+
+
+    .ventana1 {
+      left: 10px;
+    }
+
+    .ventana2 {
+      right: 10px;
+    }
+
+
+    /* =========================
+       LAGO
+    ========================= */
+
+    .lago {
+      position: absolute;
+
+      left: 0;
+      right: 0;
+
+      bottom: 17%;
+
+      height: 20%;
+
+      background:
+        repeating-linear-gradient(
+          0deg,
+          #151b43 0px,
+          #151b43 5px,
+          #202952 6px,
+          #202952 9px
+        );
+
+      border-top: 3px solid #45426b;
+    }
+
+
+    .reflejo {
+      position: absolute;
+
+      left: 50%;
+      top: 10%;
+
+      transform: translateX(-50%);
+
+      width: 100px;
+      height: 80%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 205, 144, .12),
+          transparent
+        );
+
+      filter: blur(3px);
+    }
+
+
+    /* =========================
+       SUELO
+    ========================= */
+
+    .suelo {
+      position: absolute;
+
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      height: 21%;
+
+      background:
+        linear-gradient(
+          #40533f,
+          #293c35
+        );
+
+      border-top: 4px solid #60735a;
+    }
+
+
+    /* =========================
+       FLORES
+    ========================= */
+
+    .flor {
+      position: absolute;
+
+      border: none;
+      background: none;
+
+      cursor: pointer;
+
+      font-size: 28px;
+
+      animation: moverFlor 2s ease-in-out infinite alternate;
+    }
+
+
+    .flor1 {
+      left: 7%;
+      bottom: 35%;
+    }
+
+    .flor2 {
+      right: 8%;
+      bottom: 50%;
+      font-size: 20px;
+    }
+
+
+    @keyframes moverFlor {
+
+      from {
+        transform: rotate(-4deg);
+      }
+
+      to {
+        transform: rotate(5deg);
+      }
+
+    }
+
+
+    /* =========================
+       PERSONAJES
+    ========================= */
+
+    .personaje {
+      position: absolute;
+
+      bottom: 32%;
+
+      border: none;
+      background: none;
+
+      cursor: pointer;
+
+      z-index: 20;
+
+      transition: transform .2s ease;
+    }
+
+
+    .personaje:active {
+      transform: translateY(-5px) scale(.96);
+    }
+
+
+    .fluffy {
+      left: 32%;
+    }
+
+
+    .princesita {
+      right: 32%;
+    }
+
+
+    .emoji-personaje {
+      display: block;
+
+      font-size: clamp(65px, 13vw, 105px);
+
+      filter:
+        drop-shadow(0 6px 2px rgba(0,0,0,.35));
+    }
+
+
+    /* Riñonera */
+
+    .rinonera {
+      position: absolute;
+
+      right: -3px;
+      bottom: 7px;
+
+      font-size: clamp(22px, 5vw, 34px);
+
+      transform: rotate(-8deg);
+    }
+
+
+    /* Corona */
+
+    .corona {
+      position: absolute;
+
+      left: 50%;
+      top: -25px;
+
+      transform: translateX(-50%);
+
+      font-size: clamp(25px, 5vw, 38px);
+
+      z-index: 2;
+
+      filter:
+        drop-shadow(0 0 5px #ffd271);
+    }
+
+
+    /* Corazón que indica que se puede pulsar */
+
+    .pulsame {
+      position: absolute;
+
+      top: -12px;
+      right: -10px;
+
+      color: #ff9dbd;
+
+      font-size: 20px;
+
+      text-shadow:
+        0 0 8px #ff86b1;
+
+      animation: corazonFlotar 1.5s ease-in-out infinite;
+    }
+
+
+    @keyframes corazonFlotar {
+
+      50% {
+        transform: translateY(-7px);
+      }
+
+    }
+
+
+    /* =========================
+       TÍTULO CAPÍTULO
+    ========================= */
+
+    #tituloCapitulo {
+      position: absolute;
+
+      top: 25px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      z-index: 30;
+
+      text-align: center;
+
+      pointer-events: none;
+
+      animation: aparecerTitulo 4s forwards;
+    }
+
+
+    #tituloCapitulo span {
+      color: #cf86a9;
+
+      font-size: 11px;
+
+      letter-spacing: 4px;
+    }
+
+
+    #tituloCapitulo h2 {
+      color: #ffe0b5;
+
+      font-size: clamp(18px, 4vw, 25px);
+
+      margin-top: 5px;
+
+      text-shadow:
+        2px 2px #4c294d;
+    }
+
+
+    @keyframes aparecerTitulo {
+
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -15px);
+      }
+
+      20% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+
+    }
+
+
+    /* =========================
+       CONTADOR DE RECUERDOS
+    ========================= */
+
+    #contador {
+      position: absolute;
+
+      left: 12px;
+      top: 12px;
+
+      z-index: 40;
+
+      padding: 8px 11px;
+
+      background: rgba(29, 18, 48, .85);
+
+      border: 2px solid #97607e;
+
+      border-radius: 7px;
+
+      color: #ffd8e2;
+
+      font-size: 11px;
+
+      box-shadow: 0 3px #160e27;
+    }
+
+
+    /* =========================
+       CAMINO
+    ========================= */
+
+    #camino {
+      position: absolute;
+
+      right: 4%;
+      bottom: 6%;
+
+      z-index: 25;
+
+      padding: 10px 15px;
+
+      color: #ffd4df;
+
+      background: #352142;
+
+      border: 3px solid #a96b8c;
+
+      border-radius: 8px;
+
+      box-shadow: 0 4px #1d1428;
+
+      cursor: pointer;
+
+      font-size: 14px;
+    }
+
+
+    #camino:active {
+      transform: translateY(3px);
+
+      box-shadow: 0 1px #1d1428;
+    }
+
+
+    /* =========================
+       CAJA DE DIÁLOGO
+    ========================= */
+
+    #dialogoFondo {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 200;
+
+      display: flex;
+
+      align-items: flex-end;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(8, 5, 24, .25);
+    }
+
+
+    #dialogo {
+      position: relative;
+
+      width: min(700px, 95vw);
+
+      min-height: 150px;
+
+      padding: 20px;
+
+      background: #2a1b40;
+
+      border: 4px solid #b56d91;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 7px 0 #150e24,
+        inset 0 0 0 3px #4e3058;
+
+      color: #ffe7d0;
+    }
+
+
+    #nombrePersonaje {
+      margin-bottom: 12px;
+
+      color: #ff9fbd;
+
+      font-weight: bold;
+
+      font-size: 15px;
+    }
+
+
+    #textoDialogo {
+      line-height: 1.7;
+
+      font-size: clamp(14px, 3vw, 17px);
+    }
+
+
+    #continuarDialogo {
+      display: block;
+
+      margin-left: auto;
+      margin-top: 15px;
+
+      padding: 7px 10px;
+
+      border: none;
+      background: transparent;
+
+      color: #ffabc3;
+
+      cursor: pointer;
+
+      font-size: 13px;
+    }
+
+
+    /* =========================
+       MENSAJE RECUERDO
+    ========================= */
+
+    #nuevoRecuerdo {
+      position: fixed;
+
+      top: 15%;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      z-index: 300;
+
+      padding: 12px 20px;
+
+      background: #39224b;
+
+      color: #ffd2df;
+
+      border: 3px solid #c1769c;
+
+      border-radius: 8px;
+
+      box-shadow: 0 5px #1b1028;
+
+      text-align: center;
+
+      animation: recuerdoAparece 2.5s forwards;
+    }
+
+
+    @keyframes recuerdoAparece {
+
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -15px);
+      }
+
+      20% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+
+    }
+
+
+    /* =========================
+       MÓVIL
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      #portada {
+        background-size: cover;
+      }
+
+      #botonComenzar {
+        top: 62%;
+        width: 70vw;
+        height: 70px;
+      }
+
+      .fluffy {
+        left: 21%;
+      }
+
+      .princesita {
+        right: 21%;
+      }
+
+      .personaje {
+        bottom: 30%;
+      }
+
+      #dialogoFondo {
+        padding: 12px;
+      }
+
+      #dialogo {
+        min-height: 165px;
+        margin-bottom: 10px;
+      }
+
+      #camino {
+        right: 10px;
+        bottom: 10px;
+      }
+
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
-  <!-- PORTADA -->
+
+  <!-- =========================
+       PORTADA
+  ========================== -->
+
   <div id="portada">
 
     <button
@@ -96,31 +932,462 @@
   </div>
 
 
-  <!-- AQUÍ IRÁ NUESTRO JUEGO -->
-  <div id="juego">
 
-    <h1>♡ Capítulo 1 ♡</h1>
+  <!-- =========================
+       JUEGO
+  ========================== -->
 
-    <p>Érase una vez un osito y una princesita...</p>
+  <main id="juego" class="hidden">
+
+
+    <!-- TÍTULO -->
+
+    <div id="tituloCapitulo">
+
+      <span>CAPÍTULO 1</span>
+
+      <h2>Donde empieza nuestra aventura</h2>
+
+    </div>
+
+
+    <!-- CONTADOR -->
+
+    <div id="contador">
+
+      ♡ Recuerdos:
+      <span id="numeroRecuerdos">0</span>/3
+
+    </div>
+
+
+    <!-- CIELO -->
+
+    <div class="cielo">
+
+      <span class="estrella e1">·</span>
+      <span class="estrella e2">✦</span>
+      <span class="estrella e3">·</span>
+      <span class="estrella e4">✦</span>
+
+      <button
+        class="estrella-secreta"
+        onclick="interactuar('estrella')"
+        aria-label="Estrella">
+        ✦
+      </button>
+
+      <div class="luna">☾</div>
+
+    </div>
+
+
+    <!-- MONTAÑAS -->
+
+    <div class="montanas"></div>
+
+
+    <!-- PUEBLO -->
+
+    <div class="pueblo">
+
+      <div class="casa">
+
+        <div class="ventana ventana1"></div>
+        <div class="ventana ventana2"></div>
+
+      </div>
+
+
+      <div class="casa">
+
+        <div class="ventana ventana1"></div>
+        <div class="ventana ventana2"></div>
+
+      </div>
+
+
+      <div class="casa">
+
+        <div class="ventana ventana1"></div>
+        <div class="ventana ventana2"></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- LAGO -->
+
+    <div class="lago">
+
+      <div class="reflejo"></div>
+
+    </div>
+
+
+    <!-- SUELO -->
+
+    <div class="suelo">
+
+
+      <!-- FLOR -->
+
+      <button
+        class="flor flor1"
+        onclick="interactuar('flor')"
+        aria-label="Flor">
+        🌷
+      </button>
+
+
+      <span class="flor flor2">
+        🌸
+      </span>
+
+
+      <!-- FLUFFY -->
+
+      <button
+        class="personaje fluffy"
+        onclick="interactuar('fluffy')"
+        aria-label="Fluffy">
+
+        <span class="pulsame">♡</span>
+
+        <span class="emoji-personaje">
+          🧸
+        </span>
+
+        <span class="rinonera">
+          🎒
+        </span>
+
+      </button>
+
+
+      <!-- PRINCESITA -->
+
+      <button
+        class="personaje princesita"
+        onclick="interactuar('princesita')"
+        aria-label="La Princesita">
+
+        <span class="pulsame">♡</span>
+
+        <span class="corona">
+          👑
+        </span>
+
+        <span class="emoji-personaje">
+          🐱
+        </span>
+
+      </button>
+
+
+      <!-- CAMINO -->
+
+      <button
+        id="camino"
+        onclick="interactuar('camino')">
+
+        continuar →
+
+      </button>
+
+
+    </div>
+
+
+  </main>
+
+
+
+  <!-- =========================
+       DIÁLOGO
+  ========================== -->
+
+  <div
+    id="dialogoFondo"
+    class="hidden">
+
+    <div id="dialogo">
+
+      <div id="nombrePersonaje">
+        🧸 FLUFFY
+      </div>
+
+      <div id="textoDialogo">
+      </div>
+
+      <button
+        id="continuarDialogo"
+        onclick="cerrarDialogo()">
+
+        continuar ♡
+
+      </button>
+
+    </div>
 
   </div>
 
 
+
+  <!-- MENSAJE RECUERDO -->
+
+  <div
+    id="nuevoRecuerdo"
+    class="hidden">
+
+    ♡ RECUERDO ENCONTRADO ♡
+
+  </div>
+
+
+
   <script>
 
-    const boton = document.getElementById("botonComenzar");
-    const portada = document.getElementById("portada");
-    const juego = document.getElementById("juego");
+    /* =========================
+       VARIABLES
+    ========================== */
 
-    boton.addEventListener("click", function() {
+    const portada =
+      document.getElementById("portada");
 
-      portada.style.display = "none";
+    const botonComenzar =
+      document.getElementById("botonComenzar");
 
-      juego.style.display = "flex";
+    const juego =
+      document.getElementById("juego");
 
-    });
+    const dialogoFondo =
+      document.getElementById("dialogoFondo");
+
+    const nombrePersonaje =
+      document.getElementById("nombrePersonaje");
+
+    const textoDialogo =
+      document.getElementById("textoDialogo");
+
+    const numeroRecuerdos =
+      document.getElementById("numeroRecuerdos");
+
+    const nuevoRecuerdo =
+      document.getElementById("nuevoRecuerdo");
+
+
+    let recuerdos = new Set();
+
+
+
+    /* =========================
+       COMENZAR
+    ========================== */
+
+    botonComenzar.addEventListener(
+      "click",
+      comenzarJuego
+    );
+
+
+    function comenzarJuego() {
+
+      portada.classList.add(
+        "portada-saliendo"
+      );
+
+
+      setTimeout(function() {
+
+        portada.classList.add("hidden");
+
+        juego.classList.remove("hidden");
+
+
+        setTimeout(function() {
+
+          mostrarDialogo(
+
+            "🧸 FLUFFY",
+
+            "Princesita... parece que hemos acabado en un lugar lleno de recuerdos."
+
+          );
+
+        }, 900);
+
+
+      }, 900);
+
+    }
+
+
+
+    /* =========================
+       INTERACCIONES
+    ========================== */
+
+    function interactuar(tipo) {
+
+
+      if (tipo === "fluffy") {
+
+        mostrarDialogo(
+
+          "🧸 FLUFFY",
+
+          "Creo que nuestra historia está escondida por todo este lugar... ¿me ayudas a encontrarla? ♡"
+
+        );
+
+      }
+
+
+
+      if (tipo === "princesita") {
+
+        mostrarDialogo(
+
+          "👑 LA PRINCESITA",
+
+          "Entonces tendremos que descubrirla juntas."
+
+        );
+
+      }
+
+
+
+      if (tipo === "estrella") {
+
+        mostrarDialogo(
+
+          "✦ UNA ESTRELLA",
+
+          "Hay recuerdos que siguen brillando incluso cuando ha pasado mucho tiempo."
+
+        );
+
+        conseguirRecuerdo("estrella");
+
+      }
+
+
+
+      if (tipo === "flor") {
+
+        mostrarDialogo(
+
+          "🌷 UNA PEQUEÑA FLOR",
+
+          "Algunas de las cosas más bonitas aparecen cuando menos las esperas."
+
+        );
+
+        conseguirRecuerdo("flor");
+
+      }
+
+
+
+      if (tipo === "camino") {
+
+
+        if (recuerdos.size < 2) {
+
+          mostrarDialogo(
+
+            "🧸 FLUFFY",
+
+            "Espera, Princesita... creo que todavía queda algo escondido por aquí."
+
+          );
+
+        }
+
+
+        else {
+
+          mostrarDialogo(
+
+            "🧸 FLUFFY",
+
+            "Creo que ya podemos continuar... pero esto acaba de empezar. ♡"
+
+          );
+
+          conseguirRecuerdo("capitulo1");
+
+        }
+
+      }
+
+    }
+
+
+
+    /* =========================
+       DIÁLOGOS
+    ========================== */
+
+    function mostrarDialogo(nombre, texto) {
+
+      nombrePersonaje.textContent = nombre;
+
+      textoDialogo.textContent = texto;
+
+      dialogoFondo.classList.remove("hidden");
+
+    }
+
+
+    function cerrarDialogo() {
+
+      dialogoFondo.classList.add("hidden");
+
+    }
+
+
+
+    /* =========================
+       RECUERDOS
+    ========================== */
+
+    function conseguirRecuerdo(nombre) {
+
+
+      if (recuerdos.has(nombre)) {
+        return;
+      }
+
+
+      recuerdos.add(nombre);
+
+
+      numeroRecuerdos.textContent =
+        recuerdos.size;
+
+
+      nuevoRecuerdo.classList.remove(
+        "hidden"
+      );
+
+
+      setTimeout(function() {
+
+        nuevoRecuerdo.classList.add(
+          "hidden"
+        );
+
+      }, 2500);
+
+    }
 
   </script>
 
+
 </body>
+
 </html>
