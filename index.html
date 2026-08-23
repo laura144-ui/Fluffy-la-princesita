@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fluffy & La Princesita ♡</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0b0d24;
+      overflow: hidden;
+    }
+
+    #portada {
+      width: 100vw;
+      height: 100vh;
+
+      background-image: url("portada.png");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      position: relative;
+    }
+
+    #botonComenzar {
+      position: absolute;
+
+      /* Zona del botón dibujado en la imagen */
+      left: 50%;
+      top: 63%;
+
+      transform: translate(-50%, -50%);
+
+      width: 360px;
+      height: 75px;
+
+      /* Invisible pero clicable */
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    #botonComenzar:hover {
+      filter: brightness(1.15);
+    }
+
+    #juego {
+      display: none;
+
+      width: 100vw;
+      height: 100vh;
+
+      background: linear-gradient(
+        #11183c,
+        #263c61
+      );
+
+      color: white;
+
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      font-family: monospace;
+    }
+
+    #juego h1 {
+      color: #f4a7c1;
+      margin-bottom: 20px;
+    }
+
+    #juego p {
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PORTADA -->
+  <div id="portada">
+
+    <button
+      id="botonComenzar"
+      aria-label="Comenzar aventura">
+    </button>
+
+  </div>
+
+
+  <!-- AQUÍ IRÁ NUESTRO JUEGO -->
+  <div id="juego">
+
+    <h1>♡ Capítulo 1 ♡</h1>
+
+    <p>Érase una vez un osito y una princesita...</p>
+
+  </div>
+
+
+  <script>
+
+    const boton = document.getElementById("botonComenzar");
+    const portada = document.getElementById("portada");
+    const juego = document.getElementById("juego");
+
+    boton.addEventListener("click", function() {
+
+      portada.style.display = "none";
+
+      juego.style.display = "flex";
+
+    });
+
+  </script>
+
+</body>
+</html>
